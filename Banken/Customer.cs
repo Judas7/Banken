@@ -8,8 +8,8 @@ namespace Banken
 {
     class Customer
     {
-        public string Namn { get; set; }
+        public string Name { get; set; }
         public int Balance { get; set; }
-        public string ShowCustomer { get { return "Hej" + Namn + "Saldo: " + Balance; } }
+        public string ShowCustomer { get { return Name; } }
     }
 }
