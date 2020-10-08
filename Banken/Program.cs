@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -58,13 +59,13 @@ namespace Banken
             int i = int.Parse(Console.ReadLine()); //The number of the customer the user wants to withdraw money from is stored in the variable "i"
             Console.WriteLine("Hur mycket pengar vill du ta ut"); //The user gets asked how much money they want to withdraw
             int Withdraw = int.Parse(Console.ReadLine()); //The amount that the user wants to withdraw from a customer gets stored in the variable "Withdraw". It also converts the answer to a integer
-            if (customers[i].Balance < Withdraw ) //If the user wants to withdraw more money than the customer has in the bank they have to try again
+            if (customers[i].Balance() < Withdraw ) //If the user wants to withdraw more money than the customer has in the bank they have to try again
             {
                 Console.WriteLine("Du kan inte ta ut mer än vad du har på kontot!");
             }
             else
             {
-                customers[i].Balance = customers[i].Balance - Withdraw; //The chosen customers balance gets subtracted with the amount the user wanted to withdraw
+                customers[i].RemoveBalance(Withdraw); //The chosen customers balance gets subtracted with the amount the user wanted to withdraw
             }
             
         }
@@ -75,14 +76,14 @@ namespace Banken
             int i = int.Parse(Console.ReadLine()); //The number of the customer that the user wants to add money to gets stored in the variable "i"
             Console.WriteLine("Hur mycket pengar vill du sätta in"); //The user gets asked how much money they want to add
             int Transfer = int.Parse(Console.ReadLine()); //The amount of money that the user wants to add gets stored in the variable "Transfer". Aswell as converting the answer to a integer
-            customers[i].Balance = customers [i].Balance +Transfer; //The chosen customers balance gets added by the amount
+            customers[i].AddBalance(Transfer); //The chosen customers balance gets added by the amount
         }
 
         private static void ShowBalance() //This function is used for seeing the balance of a customer
         {
             Console.WriteLine("Välj vilken kunds saldo du vill se: "); //Which customers balance does the user want to see
             int i = int.Parse(Console.ReadLine()); 
-            Console.WriteLine(customers[i].Name + " har:" + customers[i].Balance + " kr"); //The chosen customers name and balance is written out.
+            Console.WriteLine(customers[i].Name + " har: " + customers[i].Balance() + " kr" + Environment.NewLine +  customers[i].ShowTransactions()); //The chosen customers name and balance is written out.
         }
 
         private static void RemoveCustomer() //This function allows the user to remove a customer
@@ -128,8 +129,8 @@ namespace Banken
             Console.WriteLine("7: Avsluta programmet");
             Console.WriteLine("");
             Console.WriteLine("Skriv ditt val:");
-            string C = Console.ReadLine(); //The choice is stored in the variable "C"
-            int Choice = int.Parse(C); //The value of "C" is transfered to "Choice" and converted to a int
+            string c = Console.ReadLine(); //The choice is stored in the variable "C"
+            int Choice = int.Parse(c); //The value of "C" is transfered to "Choice" and converted to a int
             return Choice;
 
         }
