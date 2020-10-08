@@ -58,14 +58,14 @@ namespace Banken
             Console.WriteLine("Välj vilken kund du vill göra ett uttag från: "); //The user is asked which customer they want to withdraw money from
             int i = int.Parse(Console.ReadLine()); //The number of the customer the user wants to withdraw money from is stored in the variable "i"
             Console.WriteLine("Hur mycket pengar vill du ta ut"); //The user gets asked how much money they want to withdraw
-            int Withdraw = int.Parse(Console.ReadLine()); //The amount that the user wants to withdraw from a customer gets stored in the variable "Withdraw". It also converts the answer to a integer
-            if (customers[i].Balance() < Withdraw ) //If the user wants to withdraw more money than the customer has in the bank they have to try again
+            int withdraw = int.Parse(Console.ReadLine()); //The amount that the user wants to withdraw from a customer gets stored in the variable "withdraw". It also converts the answer to a integer
+            if (customers[i].Balance() < withdraw ) //If the user wants to withdraw more money than the customer has in the bank they have to try again
             {
                 Console.WriteLine("Du kan inte ta ut mer än vad du har på kontot!");
             }
             else
             {
-                customers[i].RemoveBalance(Withdraw); //The chosen customers balance gets subtracted with the amount the user wanted to withdraw
+                customers[i].RemoveBalance(withdraw); //The chosen customers balance gets subtracted with the amount the user wanted to withdraw
             }
             
         }
@@ -75,15 +75,15 @@ namespace Banken
             Console.WriteLine("Välj vilken kund du vill göra en insättning till: "); //The user is asked which customer they want to add money to
             int i = int.Parse(Console.ReadLine()); //The number of the customer that the user wants to add money to gets stored in the variable "i"
             Console.WriteLine("Hur mycket pengar vill du sätta in"); //The user gets asked how much money they want to add
-            int Transfer = int.Parse(Console.ReadLine()); //The amount of money that the user wants to add gets stored in the variable "Transfer". Aswell as converting the answer to a integer
-            customers[i].AddBalance(Transfer); //The chosen customers balance gets added by the amount
+            int transfer = int.Parse(Console.ReadLine()); //The amount of money that the user wants to add gets stored in the variable "transfer". Aswell as converting the answer to a integer
+            customers[i].AddBalance(transfer); //The chosen customers balance gets added by the amount
         }
 
         private static void ShowBalance() //This function is used for seeing the balance of a customer
         {
             Console.WriteLine("Välj vilken kunds saldo du vill se: "); //Which customers balance does the user want to see
             int i = int.Parse(Console.ReadLine()); 
-            Console.WriteLine(customers[i].Name + " har: " + customers[i].Balance() + " kr" + Environment.NewLine +  customers[i].ShowTransactions()); //The chosen customers name and balance is written out.
+            Console.WriteLine(customers[i].Name + " har: " + customers[i].Balance() + " kr" + Environment.NewLine +  customers[i].ShowTransactions()); //The chosen customers name and balance is written out. Aswell as the transaction history of the customer
         }
 
         private static void RemoveCustomer() //This function allows the user to remove a customer
@@ -129,9 +129,9 @@ namespace Banken
             Console.WriteLine("7: Avsluta programmet");
             Console.WriteLine("");
             Console.WriteLine("Skriv ditt val:");
-            string c = Console.ReadLine(); //The choice is stored in the variable "C"
-            int Choice = int.Parse(c); //The value of "C" is transfered to "Choice" and converted to a int
-            return Choice;
+            string c = Console.ReadLine(); //The choice is stored in the variable "c"
+            int choice = int.Parse(c); //The value of "c" is transfered to "choice" and converted to a int
+            return choice;
 
         }
     }

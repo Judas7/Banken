@@ -12,21 +12,21 @@ namespace Banken
        
         public List<Transaction> transactions = new List<Transaction>();
         public string ShowCustomer { get { return Name; } } //This method returns the name of the customer
-        public void AddBalance(int value)
+        public void AddBalance(int value) //This function adds the transfer to the specific customers transaction list with date and time of the transfer
         {
             Transaction t = new Transaction();
             t.value = value;
             t.time = DateTime.Now;
             transactions.Add(t);
         }
-        public void RemoveBalance(int value)
+        public void RemoveBalance(int value) //This function adds the withdrawal to the specific customers transacion list with date and time of the withdrawal
         {
             Transaction t = new Transaction();
             t.value = -1* value;
             t.time = DateTime.Now;
             transactions.Add(t);
         }
-        public int Balance()
+        public int Balance() //This function calculates the customers balance
         {
             int sum = 0;
             foreach (Transaction t in transactions)
@@ -35,7 +35,7 @@ namespace Banken
             }
             return sum;
         }
-        public string ShowTransactions()
+        public string ShowTransactions() //This function shows the transaction history of a customer
         {
             string str = "";
             foreach(Transaction t in transactions)
