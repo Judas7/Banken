@@ -13,9 +13,11 @@ namespace Banken
     {
         static List<Customer> customers = new List<Customer>();
         static string filepath = @"C:\customers\";
-        static string filename = @"customer.txt";
+        static string filename = @"customerlist.txt";
         static void Main(string[] args)
         {
+            string text = ReadFile(filepath + filename);
+            string[] items = text.Split(';');
 
 
             int Choice = 0; //The variable "Choice" is set to 0 
@@ -57,12 +59,18 @@ namespace Banken
             Console.ReadLine();
         }
 
+        private static string ReadFile(string filename)
+        {
+            string text = File.ReadAllText(filename);
+            return text;
+        }
+
         private static void WriteCustomersToFile()
         {
             string users = "";
             foreach (Customer c in customers)
             {
-                users += c.Name + ";";
+                users += c.Name + "|" + c.Balance() + "kr" ;
             }
             WriteFile(filepath, filename, users);
         }
