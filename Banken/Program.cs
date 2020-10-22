@@ -16,8 +16,22 @@ namespace Banken
         static string filename = @"customerlist.txt";
         static void Main(string[] args)
         {
-            string text = ReadFile(filepath + filename);
-            string[] items = text.Split(';');
+            if (File.Exists(filepath + filename)) //If a file already exists read the content and store it. 
+            {
+                string text = ReadFile(filepath + filename);
+                string[] items = text.Split(';');
+                foreach (string item in items)
+                {
+                    Customer c = new Customer();
+                    string[] details = item.Split('|');
+                    c.Name = details[0];
+                    c.AddBalance(int.Parse(details[1]));
+                    customers.Add(c);
+                }
+            }
+
+                
+
 
 
             int Choice = 0; //The variable "Choice" is set to 0 
@@ -59,29 +73,29 @@ namespace Banken
             Console.ReadLine();
         }
 
-        private static string ReadFile(string filename)
+        private static string ReadFile(string filename) //This function reads the data from the file. 
         {
             string text = File.ReadAllText(filename);
             return text;
         }
 
-        private static void WriteCustomersToFile()
+        private static void WriteCustomersToFile() //This function writes the customers and their balance to a file
         {
             string users = "";
             foreach (Customer c in customers)
             {
-                users += c.Name + "|" + c.Balance() + "kr" ;
+                users += c.Name + "| " + c.Balance() + ";";
             }
             WriteFile(filepath, filename, users);
         }
-        static void WriteFile(string filepath, string filename, string text)
+        static void WriteFile(string filepath, string filename, string text) //This function creates a new file and a directory
         {
             string f = filepath + filename;
-            if (File.Exists(f))
+            if (File.Exists(f)) //If there already is a file it removes that to write in the new data
             {
                 File.Delete(f);
             }
-            if (Directory.Exists(filepath) == false)
+            if (Directory.Exists(filepath) == false) //If there is no directory, create one. 
             {
                 Directory.CreateDirectory(filepath);
             }
